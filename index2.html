@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+</head>
+<style>
+body{
+  background-color: black;
+  color: #d9ded7
+}
+</style>
+<body>
+    <div id="app-7">
+        <ol>
+            <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+            <li v-for="item in groceryList">
+              {{ '*****' + item.text + '*****'}}
+            </li>
+        </ol>
+
+        <ul>
+          <todo-item2 v-for="item in groceryList" v-bind:field1="item"></todo-item2>
+        </ul>
+
+    </div>
+
+    <script type="text/javascript">
+        Vue.component('todo-item', {
+            props: ['todo'],
+            template: "<li>{{todo.text+' haha '}}</li>"
+        })
+
+        Vue.component('todo-item2',{
+          props: ['field1'],
+          template: "<h2>{{field1.text}}</h2>"
+        })
+
+        var app7 = new Vue({
+          el: "#app-7",
+          data: {
+            groceryList : [
+              {text:"test001"},
+              {text:"test002"},
+              {text:"test003"}
+            ]
+          }
+
+        })
+    </script>
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
