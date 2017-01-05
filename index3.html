@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+    <script src="./js/jquery.min.js"></script>
+    <!-- <script src="https://unpkg.com/vue/dist/vue.js"></script> -->
+</head>
+<style>
+    body {
+        background-color: black;
+        color: #d9ded7
+    }
+</style>
+
+<body>
+    <!-- 练习01 -->
+    <!-- <script type="text/javascript">
+    var data = {a:1}
+    var vm= new Vue({
+      data: data
+    })
+    console.log(vm.a===data.a);
+
+    vm.a = 2;
+    console.log(data.a);
+
+    data.a=3;
+    console.log(vm.a);
+  </script> -->
+
+    <!-- 练习2 -->
+    <!-- <div id="example">helloworld</div>
+  <script type="text/javascript">
+    var data = {a:1};
+    var vm = new Vue({
+      el: "#example",
+      data: data
+    });
+
+    console.log(vm.$data===data);
+    console.log(vm.$el === document.getElementById("example"));
+    console.log(vm.$el === $("#example")[0]);
+
+    vm.$watch('a',function(newVal, oldVal){
+      console.log("new Value: "+newVal);
+      console.log("old Value: "+oldVal);
+    })
+  </script> -->
+
+    <!-- 练习03，测试vue的构造函数 -->
+    <!-- <script type="text/javascript">
+    var vm= new Vue({
+      data: {
+        a:100
+      },
+      created: function() {
+        console.log("<h1></h1>a is:" + this.a)
+      }
+    })
+  </script> -->
+
+    <!-- span#span1{Message: {{msg}}} -->
+    <span id="span1">Message: <h1>{{msg}}</h1> {{msg}}</span>
+    <script type="text/javascript">
+        var vSpan = new Vue({
+            el: "#span1",
+            data: {
+                msg: "The current time is: " + new Date()
+            }
+        })
+    </script>
+
+    <!-- div[v-html=rawHtml] -->
+    <div v-html="rawHtml">11211</div>
+
+    <!-- 继续练习vue 加油！-->
+    <!-- a#a01{here} -->
+    <a :href="url" id="a01">click here</a>
+    <script type="text/javascript">
+        var vA01 = new Vue({
+            el: "#a01",
+            data: {
+                url: "http://www.baidu.com"
+            }
+        })
+    </script>
+
+    <!-- 练习vue+textbox -->
+    <hr>
+    <input type="text" name="" id="txt1" :value="txt1Value" :size="txt1Size">
+    <script type="text/javascript">
+        var vueTxt1 = new Vue({
+            el: "#txt1",
+            data: {
+                txt1Value: "hell world!",
+                txt1Size: 100
+            }
+        })
+    </script>
+
+    <!-- 练习vue+button -->
+    <hr>
+    <input type="button" :value="btn1Value" id="btn1" :size="btn1Size"></button>
+    <script type="text/javascript">
+        var vueBtn1 = new Vue({
+            el: "#btn1",
+            data: {
+                btn1Value: "button @steve.k.colin@gmail.com",
+                btn1Size: "100"
+            }
+        })
+    </script>
+
+    
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
