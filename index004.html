@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+    <script src="./js/jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- 练习h001,h002两个element是否显示，使用javascript控制 -->
+    <h1 id="h001" v-if="ok">yes</h1>
+    <ul id="h002" v-if="ok">
+        <li>test001</li>
+        <li>test002</li>
+        <li>test003</li>
+        <li>test004</li>
+        <li>test005</li>
+    </ul>
+
+    <script type="text/javascript">
+        var vueH001 = new Vue({
+            el: "#h001",
+            data: {
+                ok: true
+            }
+        })
+
+        var vueH002 = new Vue({
+            el: "#h002",
+            data: {
+                ok: true
+            }
+        })
+    </script>
+
+    <!-- 练习v-for的使用 -->
+    <hr>
+    <ul id="ul001">
+        <li v-for="item in items">{{item.message}}</li>
+    </ul>
+
+    <script type="text/javascript">
+        var vueUl001 = new Vue({
+            el: "#ul001",
+            data: {
+                items: [{
+                        message: "foo"
+                    },
+                    {
+                        message: "bar"
+                    },
+                    {
+                        message: "cat"
+                    }
+                ]
+            }
+        })
+    </script>
+    <hr>
+
+    <ul id="ul002">
+        <li v-for="(item, index) in items">
+            {{ parentMessage }} --- {{index}} ---{{item.message}}
+        </li>
+    </ul>
+
+    <script type="text/javascript">
+        var vueUL002 = new Vue({
+            el: "#ul002",
+            data: {
+                parentMessage: "Parent",
+                items: [{
+                        message: "foo"
+                    },
+                    {
+                        message: "Bar"
+                    },
+                    {
+                        message: "Cat"
+                    }
+                ]
+            }
+        })
+    </script>
+
+    <hr>
+    <!-- <ul id="repeat-object" class="demo">
+      <li v-for="value in object">{{value}}</li>
+    </ul> -->
+    <hr>
+    <ul id="repeat-object">
+        <li v-for="(value,key) in object"> {{key}} ---> {{value}}</li>
+    </ul>
+
+
+    <script type="text/javascript">
+        new Vue({
+            el: "#repeat-object",
+            data: {
+                object: {
+                    firstName: "John",
+                    lastName: "Doe",
+                    Age: 30
+                }
+            }
+        })
+    </script>
+    <hr>
+
+    <ul id="div02">
+        <li v-for="n in 10">{{n}}</li>
+    </ul>
+
+    <script type="text/javascript">
+        new Vue({
+            el: "#div02"
+        })
+    </script>
+
+    <!-- 使用vue.component来实现功能 -->
+    <hr>
+    <div id="todo-list-example">
+        <input v-model="newTodoText" v-on:keyup.enter="addNewToDo" placeholder="Add a todo">
+        <ol>
+            <li is="todo-item" v-for="(todo,index) in todos" :title="todo" v-on:remove="todos.splice(index,1)"></li>
+        </ol>
+    </div>
+
+    <script type="text/javascript">
+        Vue.component('todo-item', {
+            template: '\
+    <li>\
+      {{ title }}\
+      <button v-on:click="$emit(\'remove\')">X</button>\
+    </li>\
+  ',
+            props: ['title']
+        })
+
+        new Vue({
+            el: "#todo-list-example",
+            data: {
+                newTodoText: '',
+                todos: [
+                    'Do the dishes',
+                    'Take out the trash',
+                    'Mow the lawn'
+                ]
+            },
+            methods: {
+                addNewToDo: function() {
+                    this.todos.push(this.newTodoText);
+                    this.newTodoText = '';
+                }
+            }
+        })
+    </script>
+
+    <hr>
+    <div id="todo-list-example2">
+        <input type="text" v-model="newTodoText" v-on:keyup.enter="addNewToDo">
+        <ol>
+            <li is="todo-item2" v-for="(todo,index) in todos" :title="todo" v-on:remove="todos.splice(index,1)"></li>
+        </ol>
+    </div>
+
+    <script type="text/javascript">
+        Vue.component("todo-item2", {
+            template: '\
+<li>\
+  {{ title }}\
+  <button v-on:click="$emit(\'remove\')">X</button>\
+</li>\
+        ',
+            props: ['title']
+        })
+
+        new Vue({
+            el: "#todo-list-example2",
+            data: {
+                newTodoText: '',
+                todos: [
+                    'test001',
+                    'test002',
+                    'test003'
+                ]
+            },
+
+            methods: {
+                addNewToDo: function() {
+                    this.todos.push(this.newTodoText);
+                    this.newTodoText = '';
+                }
+            }
+        })
+    </script>
+
+    <hr>
+    <ol id="ol1">
+      <li v-for="n in evenNumbers">{{n}}</li>
+    </ol>
+
+    <script type="text/javascript">
+    var vueOl1 = new Vue({
+      el: "#ol1",
+      data: {
+        numbers: [1,2,3,4,5,6,7,8,9,10,11,12]
+      },
+
+      computed: {
+        evenNumbers: function(){
+          return this.numbers.filter(function(number){
+            return number % 2 ===0
+          })
+        }
+      }
+    })
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
