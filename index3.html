@@ -11,10 +11,10 @@
     <!-- <script src="https://unpkg.com/vue/dist/vue.js"></script> -->
 </head>
 <style>
-    body {
+    /*body {
         background-color: black;
         color: #d9ded7
-    }
+    }*/
 </style>
 
 <body>
@@ -116,7 +116,182 @@
         })
     </script>
 
-    
+    <!-- 练习vue+div02计算文字倒牌 -->
+    <hr>
+    <div id="div02">{{message.split('').reverse().join('')}}</div>
+    <script type="text/javascript">
+        var vueDiv02 = new Vue({
+            el: "#div02",
+            data: {
+                message: "hello 陈胖子"
+            }
+        })
+    </script>
+
+    <!-- 练习vue 中的compute公式 -->
+    <hr>
+    <div id="div03">
+        <p>Origianl Message: {{message}}</p>
+        <p>Computed Reversed Message: {{reversedMessage}}</p>
+    </div>
+
+    <script type="text/javascript">
+        var vueDiv03 = new Vue({
+            el: "#div03",
+            data: {
+                message: "hello 陈胖子"
+            },
+            computed: {
+                reversedMessage: function() {
+                    return this.message.split('').reverse().join('')
+                }
+            }
+        })
+        console.log(vueDiv03.message);
+        console.log(vueDiv03.reversedMessage);
+    </script>
+
+
+    <!-- 练习vue中的compute方式 -->
+    <hr>
+    <div id="div04">
+        <p>First Name is: {{firstName}}</p>
+        <p>Last Name is: {{lastName}}</p>
+        <p>Full Name is: {{fullName}}</p>
+    </div>
+
+    <script type="text/javascript">
+        var vueDiv04 = new Vue({
+            el: "#div04",
+            data: {
+                firstName: "Steve",
+                lastName: "Chen"
+            },
+            computed: {
+                fullName: function() {
+                    return "******" + this.firstName + "." + this.lastName + "******"
+                }
+            }
+        })
+    </script>
+
+    <!-- 继续练习使用computed 属性 -->
+    <hr>
+    <div id="div05">
+        <h2>该示例为显示如何动态获取input框中的输入，然后自动计算其阶乘数！</h2>
+        <input type="number" name="" v-model="number">
+        <p>计算结果：{{number}} 的阶乘数为{{jiechengResult}}</p>
+    </div>
+    <script type="text/javascript">
+        function factorial(n) {
+            if (n === 0) {
+                return 1;
+            }
+            // This is it! Recursion!!
+            return n * factorial(n - 1);
+        }
+
+        var vueDiv05 = new Vue({
+            el: "#div05",
+            data: {
+                number: "1"
+            },
+            computed: {
+                jiechengResult: function() {
+                    var n = this.number;
+                    return factorial(n);
+                }
+            }
+        })
+    </script>
+
+    <!-- 综合使用watch, methods,方法来实现前端的功能 -->
+    <hr>
+    <div id="watch-example">
+        <p>
+            ask a yes/no question:
+            <input type="text" v-model="question">
+        </p>
+        <p>{{answer}}</p>
+    </div>
+    <script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>
+    <script type="text/javascript">
+      var watchExampleVM = new Vue({
+        el: "#watch-example",
+        data : {
+          question: '',
+          answer : "请问问题吧，我在等你呢，主淫！"
+        },
+        watch : {
+          question: function(newQuestion) {
+            this.answer = "等你输入完毕";
+            this.getAnswer()
+          }
+        },
+
+        methods: {
+          getAnswer: _.debounce(
+            function (){
+              var vm = this;
+              if (this.question.indexOf("?")===-1) {
+                vm.answer = "Questions usually contains a question mark";
+                return
+              }
+              vm.answer = "Thinking...";
+              axios.get("https://yesno.wtf/api").then(function(response){
+                vm.answer = _.capitalize(response.data.answer);
+              }).catch(function(error){
+                vm.answer = 'Error! Could not reach the API. ' + error
+              })
+            },500
+          )
+        }
+
+      })
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
