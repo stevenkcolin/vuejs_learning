@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+    <script src="./js/jquery.min.js"></script>
+</head>
+
+<body>
+    <!-- 练习@click事件01 -->
+    <div id="example-1">
+        <button @click="counter+=1"> One Times</button>
+        <button @click="counter=0">Reset</button>
+        <p>this button is clicked {{counter}} times</p>
+
+    </div>
+
+    <script type="text/javascript">
+        var example1 = new Vue({
+            el: "#example-1",
+            data: {
+                counter: 0
+            }
+        })
+    </script>
+
+
+    <!-- 练习@click事件02 -->
+    <hr>
+    <div id="example-2">
+        <button @click="greet">Greet</button>
+        <button @click="log">Log</button>
+    </div>
+
+    <script type="text/javascript">
+        var example2 = new Vue({
+            el: "#example-2",
+            data: {
+                name: "vue.js"
+            },
+            methods: {
+                greet: function(event) {
+                    alert("Hello: " + this.name + "!");
+                    alert(event.target.tagName)
+                },
+                log: function(event) {
+                    console.log("hello world!");
+                    console.log(event.x + " " + event.y);
+                    // alert("hello world!")
+                }
+            }
+        })
+    </script>
+
+    <!-- 练习传入参数 -->
+    <hr>
+    <div id="example-3">
+        <button @click="say('hi')">Say Hi</button>
+        <button @click="say('what')">Say What</button>
+    </div>
+
+    <script type="text/javascript">
+        var example3 = new Vue({
+            el: "#example-3",
+            methods: {
+                say: function(message) {
+                    console.log(message)
+                }
+            }
+        })
+    </script>
+
+    <!-- 练习button的onclick事件 -->
+    <hr>
+    <div id="div01">
+        <button @click="warn('Form cannot be submitted yet.', $event)">submit</button>
+        <button @click="say">Button Say</button>
+    </div>
+    <script type="text/javascript">
+        var vueDiv01 = new Vue({
+            el: "#div01",
+            methods: {
+                warn: function(message, event) {
+                    if (event) event.preventDefault();
+                    alert(message);
+                },
+                say: function() {
+                    console.log("say")
+                }
+            }
+        })
+    </script>
+
+    <!-- 继续练习onclick事件 -->
+    <hr>
+    <div id="div02">
+        <input type="text" @keyup.enter="enter" @click.ctrl="ctrl" @click.meta="meta">
+    </div>
+
+    <script type="text/javascript">
+        var vueDiv02 = new Vue({
+            el: "#div02",
+            methods: {
+                enter: function(event) {
+                    console.log("just input an Enter Key");
+                },
+                ctrl: function(event) {
+                    console.log("just input CTRL key")
+                },
+                meta: function(event) {
+                    console.log("just input Cmd Key")
+                }
+            }
+        })
+    </script>
+
+    <!-- 练习v-model -->
+    <hr>
+    <div id="div03">
+        <input type="text" v-model="message" placeholder="edit me">
+        <p>Message is {{message}}</p>
+        <hr>
+        <span>Multiline message is:</span>
+        <p style="white-space: pre">{{message2}}</p>
+        <br>
+        <textarea name="name" rows="8" cols="80" v-model="message2" placeholder="add multiple lines"></textarea>
+        <hr>
+        <input type="checkbox" name="" id="checkbox" v-model="checked">
+        <label for="checkbox">{{checked}}</label>
+
+
+        <!-- 练习数据双向绑定到checkbox -->
+        <hr>
+        <input type="checkbox" name="" id="test001" value="steve" v-model="checkedNames">
+        <label for="" test001="">steve</label>
+        <input type="checkbox" name="" id="test002" value="feixiaowei" v-model="checkedNames">
+        <label for="" test002="">feixiaowei</label>
+        <input type="checkbox" name="" id="test003" value="wuying" v-model="checkedNames">
+        <label for="" test003="">wuying</label>
+        <br>
+        <span>Checked Names: {{checkedNames}}</span>
+
+        <!-- 练习数据双向绑定到radioBox -->
+        <hr>
+        <!-- input:radio#steve$$$[value=steve$$$][v-model=picked]*3 -->
+        <input type="radio" name="aaa" id="steve001" value="steve001" v-model="picked">
+        <label for="steve001">steve001</label>
+        <input type="radio" name="aaa" id="steve002" value="steve002" v-model="picked">
+        <label for="steve002">steve002</label>
+        <input type="radio" name="aaa" id="steve003" value="steve003" v-model="picked">
+        <label for="steve003">steve003</label>
+        <br>
+        <span>Picked {{picked}}</span>
+
+        <!-- 练习select -->
+        <!-- select[v-model=selected]>option{$$$}*3 -->
+        <select name="" id="" v-model="selected">
+          <option value="001">001</option>
+          <option value="002">002</option>
+          <option value="003">003</option>
+        </select>
+        <br>
+        <span>Selected: {{selected}}</span>
+        <hr>
+
+        <!-- 练习多选 -->
+        <select name="" id="" v-model="selected2" multiple>
+          <option value="001">001</option>
+          <option value="002">002</option>
+          <option value="003">003</option>
+        </select>
+        <br>
+        <span>Selected: {{selected2}}</span>
+        <hr>
+
+        <select name="" id="" v-model="selected3" >
+          <option value="" v-for="option in options" :value="option.value">{{option.text}}</option>
+        </select>
+        <br>
+        <span>Selected: {{selected3}}</span>
+        <hr>
+
+        <input type="radio" name="" id="" v-model="picked" :value="divAAAA">
+        <label for="radio">aaaaaa</label>
+        <br>
+        <input type="checkbox" name="" id="" v-model="toggle">
+
+        <hr>
+        <input type="number" name="" id="" v-model.number="age" @keyup.enter="logAge">
+
+    </div>
+    <script type="text/javascript">
+        var vueDiv03= new Vue({
+            el: "#div03",
+            data: {
+                message: "",
+                message2: "",
+                checked: false,
+                checkedNames: [],
+                checkedNames2: [],
+                picked: "",
+                selected: [],
+                selected2: [],
+                selected3: "A",
+                options:[
+                  {text: "One", value: 'A'},
+                  {text: "Two", value: 'B'},
+                  {text: "Three", value: 'C'}
+                ],
+                toggle:false,
+                divAAAA:"hello world aaaaaa",
+                age:0
+            },
+            methods: {
+              logAge: function(){
+                // var n = parseInt(this.age);
+                var n = this.age;
+                n-=50
+                console.log(n);
+              }
+            }
+        })
+    </script>
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
