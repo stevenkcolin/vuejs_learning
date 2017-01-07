@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/vue.js"></script>
+    <script src="./js/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <!-- 练习01 component的基本使用 -->
+    <div id="example">
+        <my-component></my-component>
+    </div>
+
+    <script type="text/javascript">
+        Vue.component("my-component", {
+            template: '<div><h1>A Custom Component!</h1></div>'
+        })
+
+        new Vue({
+            el: "#example"
+        })
+    </script>
+    <hr>
+
+
+    <!-- 练习02 Component的基本使用02 -->
+    <div id="example-2">
+      <simple-counter></simple-counter>
+      <simple-counter></simple-counter>
+      <simple-counter></simple-counter>
+    </div>
+    <script type="text/javascript">
+        var data = {
+            counter: 0
+        }
+        Vue.component("simple-counter", {
+            template: '<button @click="counter+=1">{{counter}}</button>',
+            data: function() {
+                return {
+                  counter: 0
+                }
+            }
+        })
+        new Vue({
+          el: "#example-2"
+        })
+    </script>
+    <hr>
+
+    <!-- 练习03 -->
+    <div id="example-3">
+      <child my-message="hello!"></child>
+    </div>
+    <script type="text/javascript">
+      Vue.component('child',{
+        props: ['myMessage'],
+        template: '<span>{{myMessage}}</span>'
+      })
+
+      new Vue({
+        el: "#example-3"
+      })
+    </script>
+    <hr>
+
+
+    <!-- 练习04 -->
+
+    <!-- div#counter-event-example>p+(button-counter[@increment=incrementTotal])*5 -->
+    <div id="counter-event-example">
+      <p>Total number is {{total}}</p>
+      <button-counter @increment="incrementTotal"></button-counter>
+      <button-counter @increment="incrementTotal"></button-counter>
+      <button-counter @increment="incrementTotal"></button-counter>
+      <button-counter @increment="incrementTotal"></button-counter>
+      <button-counter @increment="incrementTotal"></button-counter>
+    </div>
+
+
+    <!-- 练习05，解藕的子组件 -->
+    <script type="text/javascript">
+    Vue.component("button-counter", {
+      template: '<button v-on:click="increment">{{ counter }}</button>',
+      data: function(){
+        return {
+          counter: 0
+        }
+      },
+      methods : {
+        increment: function(){
+          this.counter +=1;
+          this.$emit('increment')
+        }
+      }
+    })
+
+    new Vue({
+      el: "#counter-event-example",
+      data: {
+        total:0
+      },
+
+      methods: {
+        incrementTotal: function(){
+          this.total +=1
+        }
+      }
+    })
+    </script>
+    <hr>
+
+    <!-- 练习06 -->
+    <div id="example-6">
+    <currency-input v-model="price"></currency-input>
+    </div>
+    <script type="text/javascript">
+      Vue.component("currency-input",{
+        template: '\
+        <span>$<input type="text"\
+         ref="input"\
+         :value="value"\
+         @input="updateValue($event.target.value)" /></span>',
+      props: ['value'],
+      methods: {
+        updateValue: function(value){
+          var formattedValue = value.trim().slice(0,value.indexOf('.')+5);
+          if (formattedValue !==value) {
+            this.$refs.input.value = formattedValue;
+          }
+
+          this.$emit('input', Number(formattedValue))
+        }
+      }
+    })
+
+    new Vue({
+      el: "#example-6",
+      data: {
+        price: 0
+      }
+    })
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
